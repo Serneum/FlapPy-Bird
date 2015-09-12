@@ -17,7 +17,6 @@ class Game:
     def update(self):
         self.__heli.update()
         if self.__heli.is_colliding():
-            self.__logger.message("Kaboom!", 1)
             self.game_over()
 
     def draw(self):
@@ -35,6 +34,7 @@ class Game:
         return None
 
     def game_over(self):
+        self.__logger.message("Kaboom!", 1)
         while self.replay_or_quit() is None:
             self.__clock.tick()
         self.run()
