@@ -1,22 +1,19 @@
 import pygame
 
-pygame.init()
+class Helicopter:
+    def __init__(self, surface, image):
+        self.__image = pygame.image.load("resources/" + image)
+        self.__surface = surface
 
-display = pygame.display
-display.set_caption("Helicopter")
-surface = display.set_mode((800, 400))
-clock = pygame.time.Clock()
+        self.__x = 50
+        # Start in the center of the y axis
+        self.__y = (pygame.display.Info().current_h / 2) - (self.__image.get_rect().size[1] / 2)
+        self.__velX = 0
+        self.__velY = 0
 
-game_over = False
+    def draw(self):
+        self.__surface.blit(self.__image, (self.__x, self.__y))
 
-while not game_over:
-    keys = pygame.key.get_pressed()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            game_over = True
-
-    display.update()
-    clock.tick(60)
-
-pygame.quit()
-quit()
+    def move(self):
+        self.__x += self.__velX
+        self.__y += self.__velY
