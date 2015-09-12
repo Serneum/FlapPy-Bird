@@ -17,7 +17,7 @@ class Game:
     def update(self):
         self.__heli.update()
         if self.__heli.is_colliding():
-            self.__logger.message("Kaboom!")
+            self.__logger.message("Kaboom!", 1)
             self.game_over()
 
     def draw(self):

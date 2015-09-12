@@ -9,7 +9,7 @@ class Logger:
         self.__large_text = pygame.font.Font("freesansbold.ttf", 150)
         self.__continue_text_surf, self.__continue_text_rect = self.__make_text_objects("Press any key to continue...", self.__small_text)
 
-    def message(self, text):
+    def message(self, text, wait):
         screen_info = pygame.display.Info()
         screen_width = screen_info.current_w
         screen_height = screen_info.current_h
@@ -21,7 +21,7 @@ class Logger:
         self.__surface.blit(title_text_surf, title_text_rect)
         self.__surface.blit(self.__continue_text_surf, self.__continue_text_rect)
         self.__display.update()
-        pygame.time.wait(1)
+        pygame.time.wait(wait * 1000)
 
     def __make_text_objects(self, text, font):
         text_surface = font.render(text, True, WHITE)
