@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 from color import BLACK, WHITE
 from helicopter import Helicopter
 
@@ -12,11 +13,14 @@ class Game:
         self.__heli = Helicopter(self.__surface, "helicopter.png")
 
     def update(self):
+        self.__heli.update()
+
+    def draw(self):
         self.__heli.draw()
 
     def check_exit(self):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 self.__game_over = True
 
     def run(self):
@@ -24,6 +28,7 @@ class Game:
         clock = pygame.time.Clock()
         while not self.__game_over:
             self.update()
+            self.draw()
             self.check_exit()
             self.__display.update()
             clock.tick(60)
