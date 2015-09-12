@@ -6,7 +6,6 @@ from message import Logger
 
 class Game:
     def __init__(self):
-        self.__game_over = False
         self.__screen_width = 800
         self.__screen_height = 600
         self.__display = pygame.display
@@ -38,14 +37,13 @@ class Game:
     def game_over(self):
         while self.replay_or_quit() is None:
             self.__clock.tick()
-
         self.run()
 
     def run(self):
         pygame.init()
         self.__logger = Logger(self.__display, self.__surface)
         self.__heli = Helicopter(self.__surface, "helicopter.png")
-        while not self.__game_over:
+        while True:
             self.__surface.fill(BLACK)
             self.update()
             self.draw()
