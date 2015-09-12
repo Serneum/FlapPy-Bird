@@ -27,6 +27,7 @@ class Game:
         pygame.init()
         clock = pygame.time.Clock()
         while not self.__game_over:
+            self.__surface.fill(BLACK)
             self.update()
             self.draw()
             self.check_exit()
