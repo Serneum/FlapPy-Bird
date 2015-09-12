@@ -21,6 +21,12 @@ class Helicopter:
         self.__setVelY(is_key_pressed)
         self.__move()
 
+    def is_colliding(self):
+        result = False
+        if self.__y <= 0 or self.__y > pygame.display.Info().current_h - self.__image.get_rect().size[1]:
+            result = True
+        return result
+
     def __move(self):
         self.__x += self.__velX
         self.__y += self.__velY
