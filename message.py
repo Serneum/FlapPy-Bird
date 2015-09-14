@@ -1,5 +1,6 @@
 import pygame
 from color import WHITE
+import time
 
 class Logger:
     def __init__(self, display, surface):
@@ -21,7 +22,7 @@ class Logger:
         self.__surface.blit(title_text_surf, title_text_rect)
         self.__surface.blit(self.__continue_text_surf, self.__continue_text_rect)
         self.__display.update()
-        pygame.time.wait(wait * 1000)
+        time.sleep(wait)
 
     def __make_text_objects(self, text, font):
         text_surface = font.render(text, True, WHITE)
