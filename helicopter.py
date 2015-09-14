@@ -7,7 +7,7 @@ class Helicopter:
 
         self.__x = 100
         # Start in the center of the y axis
-        self.__y = (pygame.display.Info().current_h / 2) - (self.__image.get_rect().size[1] / 2)
+        self.__y = (pygame.display.Info().current_h / 2) - (self.get_height() / 2)
         self.__velY = 4
 
     def draw(self, surface):
@@ -26,6 +26,9 @@ class Helicopter:
         elif obstacle is not None and (self.__x >= object.get_x() and self.__x <= (object.get_x() + object.get_width()) and self.__y >= object.get_y() and self.__y <= (object.get_y() + object.get_height())):
             result = True
         return result
+
+    def get_height(self):
+        return self.__image.get_rect().size[1]
 
     def reset(self):
         self.__y = (pygame.display.Info().current_h / 2) - (self.__image.get_rect().size[1] / 2)
