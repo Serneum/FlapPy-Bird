@@ -19,13 +19,20 @@ class Helicopter:
         self.__setVelY(is_key_pressed)
         self.__move()
 
-    def is_colliding(self, obstacle):
+    def is_out_of_bounds(self):
         result = False
-        if obstacle is None and (self.__y <= 0 or self.__y > pygame.display.Info().current_h - self.__image.get_rect().size[1]):
-            result = True
-        elif obstacle is not None and (self.__x >= object.get_x() and self.__x <= (object.get_x() + object.get_width()) and self.__y >= object.get_y() and self.__y <= (object.get_y() + object.get_height())):
+        if self.__y <= 0 or self.__y > pygame.display.Info().current_h - self.__image.get_rect().size[1]:
             result = True
         return result
+
+    def get_x(self):
+        return self.__x
+
+    def get_y(self):
+        return self.__y
+
+    def get_width(self):
+        return self.__image.get_rect().size[0]
 
     def get_height(self):
         return self.__image.get_rect().size[1]

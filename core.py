@@ -15,19 +15,26 @@ class Game:
         self.__clock = pygame.time.Clock()
         self.__heli = Helicopter("helicopter.png")
         self.__logger = None
-        self.__pipe_list = []
+        self.__obstacle_list = []
 
     def update(self):
         self.__heli.update()
-        for pipe in self.__pipe_list:
-            pipe.update()
-        if self.__heli.is_colliding(None):
+        for obstacle in self.__obstacle_list:
+            obstacle.update()
+            # Check if colliding with obstacle
+            if obstacle.is_colliding(self.__heli):
+                self.game_over()
+            if obstacle.get_x() + obstacle.get_width() <= 0:
+                self.__obstacle_list.remove(obstacle)
+
+        # Check for hitting ceiling/floor after checking objects
+        if self.__heli.is_out_of_bounds():
             self.game_over()
 
     def draw(self):
         self.__heli.draw(self.__surface)
-        for pipe in self.__pipe_list:
-            pipe.draw(self.__surface)
+        for obstacle in self.__obstacle_list:
+            obstacle.draw(self.__surface)
 
     def replay_or_quit(self):
         for event in pygame.event.get([KEYDOWN, KEYUP, QUIT]):
@@ -51,8 +58,9 @@ class Game:
         diff_mod = {'EASY': 3, 'NORMAL': 2}
         self.__logger = Logger(self.__display, self.__surface)
         self.__heli.reset()
-        pipe = Pipe(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.get_height() * diff_mod['EASY'])
-        self.__pipe_list.append(pipe)
+        self.__obstacle_list = []
+        obstacle = Pipe(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.get_height() * diff_mod['EASY'])
+        self.__obstacle_list.append(obstacle)
         while True:
             self.__surface.fill(BLACK)
             self.update()
