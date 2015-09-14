@@ -21,12 +21,12 @@ class Pipe(Obstacle):
         bottom = Platform(x, bottom_y, width, bottom_height, vel_x)
         self.__pipes = [top, bottom]
 
+    def get_pipes(self):
+        return self.__pipes
+
     def update(self):
         for pipe in self.__pipes:
             pipe.update()
-
-    def get_pipes(self):
-        return self.__pipes
 
     def draw(self, surface):
         for pipe in self.get_pipes():
@@ -34,11 +34,8 @@ class Pipe(Obstacle):
 
     def is_colliding(self, player):
         result = False
-        top = self.__pipes[0]
-        bottom = self.__pipes[1]
-        if player.get_x() + player.get_width() >= top.get_x() and player.get_x() <= (top.get_x() + top.get_width()):
-            if player.get_y() <= top.get_y() + top.get_height():
-                result = True
-            elif player.get_y() + player.get_height() >= bottom.get_y():
-                result = True
+        for pipe in self.get_pipes():
+            result = pipe.is_colliding(player)
+            if result:
+                break
         return result
