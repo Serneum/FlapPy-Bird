@@ -3,6 +3,8 @@ from pygame.locals import *
 from color import BLACK, WHITE
 from helicopter import Helicopter
 from message import Logger
+from obstacles.pipe import Pipe
+from random import randint
 
 class Game:
     def __init__(self):
@@ -11,7 +13,7 @@ class Game:
         self.__display = pygame.display
         self.__surface = self.__display.set_mode((self.__screen_width, self.__screen_height))
         self.__clock = pygame.time.Clock()
-        self.__heli = None
+        self.__heli = Helicopter("helicopter.png")
         self.__logger = None
 
     def update(self):
@@ -42,7 +44,8 @@ class Game:
     def run(self):
         pygame.init()
         self.__logger = Logger(self.__display, self.__surface)
-        self.__heli = Helicopter("helicopter.png")
+        self.__heli.reset()
+        pipe = Pipe(self.__screen_width, 0, 75, randint(0, self.__screen_height), 125)
         while True:
             self.__surface.fill(BLACK)
             self.update()
