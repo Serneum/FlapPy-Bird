@@ -27,6 +27,9 @@ class Helicopter:
             result = True
         return result
 
+    def reset(self):
+        self.__y = (pygame.display.Info().current_h / 2) - (self.__image.get_rect().size[1] / 2)
+
     def __move(self):
         self.__y += self.__velY
 
