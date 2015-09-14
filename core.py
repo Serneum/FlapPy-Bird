@@ -16,11 +16,11 @@ class Game:
 
     def update(self):
         self.__heli.update()
-        if self.__heli.is_colliding():
+        if self.__heli.is_colliding(None):
             self.game_over()
 
     def draw(self):
-        self.__heli.draw()
+        self.__heli.draw(self.__surface)
 
     def replay_or_quit(self):
         for event in pygame.event.get([KEYDOWN, KEYUP, QUIT]):
@@ -42,7 +42,7 @@ class Game:
     def run(self):
         pygame.init()
         self.__logger = Logger(self.__display, self.__surface)
-        self.__heli = Helicopter(self.__surface, "helicopter.png")
+        self.__heli = Helicopter("helicopter.png")
         while True:
             self.__surface.fill(BLACK)
             self.update()
