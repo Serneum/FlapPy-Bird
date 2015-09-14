@@ -8,7 +8,7 @@ class Helicopter:
         self.__x = 100
         # Start in the center of the y axis
         self.__y = (pygame.display.Info().current_h / 2) - (self.get_height() / 2)
-        self.__velY = 4
+        self.__vel_y = 4
 
     def draw(self, surface):
         surface.blit(self.__image, (self.__x, self.__y))
@@ -34,10 +34,10 @@ class Helicopter:
         self.__y = (pygame.display.Info().current_h / 2) - (self.__image.get_rect().size[1] / 2)
 
     def __move(self):
-        self.__y += self.__velY
+        self.__y += self.__vel_y
 
     def __setVelY(self, is_key_pressed):
         if is_key_pressed:
-            self.__velY = -4
+            self.__vel_y = -4
         else:
-            self.__velY = 4
+            self.__vel_y = 4
