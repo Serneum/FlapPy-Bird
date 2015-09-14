@@ -51,14 +51,17 @@ class Game:
         self.__logger.message("Kaboom!", 1)
         while self.replay_or_quit() is None:
             self.__clock.tick()
+        self.reset()
         self.run()
+
+    def reset(self):
+        self.__heli.reset()
+        self.__obstacle_list = []
 
     def run(self):
         pygame.init()
         diff_mod = {'EASY': 3, 'NORMAL': 2}
         self.__logger = Logger(self.__display, self.__surface)
-        self.__heli.reset()
-        self.__obstacle_list = []
         obstacle = Pipe(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.get_height() * diff_mod['EASY'])
         self.__obstacle_list.append(obstacle)
         while True:
