@@ -4,11 +4,12 @@ from pygame.locals import K_SPACE, K_UP
 class Helicopter:
     def __init__(self, image):
         self.__image = pygame.image.load("resources/" + image)
+        self.__speed = 5
 
         self.__x = 100
         # Start in the center of the y axis
         self.__y = (pygame.display.Info().current_h / 2) - (self.height / 2)
-        self.__vel_y = 4
+        self.__vel_y = self.__speed
 
     def draw(self, surface):
         surface.blit(self.__image, (self.x, self.y))
@@ -49,6 +50,6 @@ class Helicopter:
 
     def __determine_vel_y(self, is_key_pressed):
         if is_key_pressed:
-            self.__vel_y = -4
+            self.__vel_y = -self.__speed
         else:
-            self.__vel_y = 4
+            self.__vel_y = self.__speed

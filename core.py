@@ -64,7 +64,7 @@ class Game:
         self.__obstacle_list = []
 
     def generate_obstacle(self):
-        diff_mod = {'EASY': 3, 'NORMAL': 2}
+        diff_mod = {'EASY': 3}
         types = {0: Platform, 1: Pipe, 2: DoublePipe}
 
         create_obstacle = len(self.__obstacle_list) is 0
@@ -75,8 +75,8 @@ class Game:
         if create_obstacle:
             obs_type = types[randint(0, 2)]
             if obs_type is Platform:
-                half_height = self.__screen_height / 2
-                obstacle = obs_type(self.__screen_width, randint(half_height - 250, half_height + 250), randint(25, self.__screen_width), 25, 3)
+                platform_height = 50
+                obstacle = obs_type(self.__screen_width, (self.__screen_height - platform_height) / 2, randint(150, self.__screen_width), platform_height, 3)
             else:
                 obstacle = obs_type(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.height * diff_mod['EASY'])
             self.__obstacle_list.append(obstacle)
