@@ -42,7 +42,7 @@ class Game:
             obstacle.draw(self.__surface)
 
     def replay_or_quit(self):
-        for event in pygame.event.get([KEYDOWN, KEYUP, QUIT]):
+        for event in pygame.event.get([KEYDOWN, QUIT]):
             if event.type is QUIT or (event.type is KEYDOWN and event.key is K_ESCAPE):
                 pygame.quit()
                 quit()
