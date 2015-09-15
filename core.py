@@ -18,6 +18,7 @@ class Game:
         self.__heli = Helicopter("helicopter.png")
         self.__logger = None
         self.__obstacle_list = []
+        self.score = 0
 
     def update(self):
         self.__heli.update()
@@ -26,6 +27,11 @@ class Game:
             # Check if colliding with obstacle
             if obstacle.is_colliding(self.__heli):
                 self.game_over()
+            # Check if we've successfully passed this obstacle. Only count score once
+            if not obstacle.passed_player and obstacle.x + obstacle.width <= self.__heli.x:
+                obstacle.passed_player = True
+                self.score += 1
+            # Remove obstacles that are now off the screen
             if obstacle.x + obstacle.width <= 0:
                 self.__obstacle_list.remove(obstacle)
 
@@ -40,6 +46,7 @@ class Game:
         self.__heli.draw(self.__surface)
         for obstacle in self.__obstacle_list:
             obstacle.draw(self.__surface)
+        self.__logger.score(self.score)
 
     def replay_or_quit(self):
         for event in pygame.event.get([KEYDOWN, QUIT]):
@@ -53,7 +60,7 @@ class Game:
         return None
 
     def game_over(self):
-        self.__logger.message("Kaboom!", 1)
+        self.__logger.game_over("Kaboom!", 1)
         while self.replay_or_quit() is None:
             self.__clock.tick()
         self.reset()
@@ -62,6 +69,7 @@ class Game:
     def reset(self):
         self.__heli.reset()
         self.__obstacle_list = []
+        self.score = 0
 
     def generate_obstacle(self):
         diff_mod = {'EASY': 3}

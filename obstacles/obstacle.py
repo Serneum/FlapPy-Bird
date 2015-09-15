@@ -8,6 +8,7 @@ class Obstacle:
         self._width = width
         self._height = height
         self._vel_x = vel_x
+        self.passed_player = False
 
     @property
     def x(self):
