@@ -1,5 +1,5 @@
 import pygame
-from color import WHITE
+from color import WHITE, SUNSET
 import time
 
 class Logger:
@@ -31,5 +31,5 @@ class Logger:
         self.__surface.blit(text, [0, 0])
 
     def __make_text_objects(self, text, font):
-        text_surface = font.render(text, True, WHITE)
+        text_surface = font.render(text, True, SUNSET)
         return text_surface, text_surface.get_rect()

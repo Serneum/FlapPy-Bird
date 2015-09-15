@@ -6,19 +6,19 @@ from obstacles.obstacle import Obstacle
 
 
 class Pipe(Obstacle):
-    def __init__(self, x, y, width, height, vel_x, gap):
-        Obstacle.__init__(self, x, y, width, height, vel_x)
+    def __init__(self, x, y, width, height, vel_x, gap, color):
+        Obstacle.__init__(self, x, y, width, height, vel_x, color)
 
         # Make sure the gap can always be seen
         screen_height = pygame.display.Info().current_h
         if (height + gap) > screen_height:
             height = screen_height - gap
-        top = Platform(x, y, width, height, vel_x)
+        top = Platform(x, y, width, height, vel_x, color)
 
         # Make sure the bottom half of the pipe always takes up the rest of the height of the screen
         bottom_y = y + gap + height
         bottom_height = screen_height - bottom_y
-        bottom = Platform(x, bottom_y, width, bottom_height, vel_x)
+        bottom = Platform(x, bottom_y, width, bottom_height, vel_x, color)
         self.__pipes = [top, bottom]
 
     @property
@@ -34,7 +34,7 @@ class Pipe(Obstacle):
 
     def draw(self, surface):
         for pipe in self.get_pipes():
-            pygame.draw.rect(surface, WHITE, [pipe.x, pipe.y, pipe.width, pipe.height])
+            pipe.draw(surface)
 
     def is_colliding(self, player):
         result = False

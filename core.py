@@ -1,12 +1,12 @@
 import pygame
 from pygame.locals import *
-from color import BLACK, WHITE
+from color import *
 from helicopter import Helicopter
 from logger import Logger
 from obstacles.platform import Platform
 from obstacles.pipe import Pipe
 from obstacles.doublePipe import DoublePipe
-from random import randint
+from random import randint, randrange
 
 class Game:
     def __init__(self):
@@ -18,6 +18,7 @@ class Game:
         self.__heli = Helicopter("helicopter.png")
         self.__logger = None
         self.__obstacle_list = []
+        self.__colors = [LIGHTBLUE, ORANGE, PURPLE, YELLOW, YELLOWGREEN]
         self.score = 0
 
     def update(self):
@@ -85,15 +86,16 @@ class Game:
             if last_obstacle.x + last_obstacle.width <= self.__screen_width - 400:
                 create_obstacle = randint(0, 1) is 1
         if create_obstacle:
+            color = self.__colors[randrange(0, len(self.__colors))]
             diff_settings = self.get_difficulty_settings()
             obs_type = types[randint(0, 2)]
             if obs_type is Platform:
                 platform_height = 50
                 obstacle = obs_type(self.__screen_width, (self.__screen_height - platform_height) / 2,
-                                    randint(150, self.__screen_width / 2), platform_height, diff_settings[0])
+                                    randint(150, self.__screen_width / 2), platform_height, diff_settings[0], color)
             else:
                 obstacle = obs_type(self.__screen_width, 0, 75, randint(0, self.__screen_height), diff_settings[0],
-                                    self.__heli.height * diff_settings[1])
+                                    self.__heli.height * diff_settings[1], color)
             self.__obstacle_list.append(obstacle)
 
     def get_difficulty_settings(self):

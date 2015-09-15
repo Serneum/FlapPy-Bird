@@ -2,11 +2,12 @@ import pygame
 from color import *
 
 class Obstacle:
-    def __init__(self, x, y, width, height, vel_x):
+    def __init__(self, x, y, width, height, vel_x, color):
         self._x = x
         self._y = y
         self._width = width
         self._height = height
+        self._color = color
         self.vel_x = vel_x
         self.passed_player = False
 

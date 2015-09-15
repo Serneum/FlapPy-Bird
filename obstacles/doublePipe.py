@@ -7,23 +7,23 @@ from obstacles.obstacle import Obstacle
 
 
 class DoublePipe(Obstacle):
-    def __init__(self, x, y, width, height, vel_x, gap):
-        Obstacle.__init__(self, x, y, width, height, vel_x)
+    def __init__(self, x, y, width, height, vel_x, gap, color):
+        Obstacle.__init__(self, x, y, width, height, vel_x, color)
         mid_height = randint(0, 150)
 
         # Make sure the gap can always be seen
         screen_height = pygame.display.Info().current_h
         if (height + (gap * 2) + mid_height) > screen_height:
             height = screen_height - (gap * 2) - mid_height
-        top = Platform(x, y, width, height, vel_x)
+        top = Platform(x, y, width, height, vel_x, color)
 
         mid_y = y + gap + height
-        mid = Platform(x, mid_y, width, mid_height, vel_x)
+        mid = Platform(x, mid_y, width, mid_height, vel_x, color)
 
         # Make sure the bottom of the pipe always takes up the rest of the height of the screen
         bottom_y = mid_y + gap + mid_height
         bottom_height = screen_height - bottom_y
-        bottom = Platform(x, bottom_y, width, bottom_height, vel_x)
+        bottom = Platform(x, bottom_y, width, bottom_height, vel_x, color)
         self.__pipes = [top, mid, bottom]
 
     @property
@@ -39,7 +39,7 @@ class DoublePipe(Obstacle):
 
     def draw(self, surface):
         for pipe in self.get_pipes():
-            pygame.draw.rect(surface, WHITE, [pipe.x, pipe.y, pipe.width, pipe.height])
+            pipe.draw(surface)
 
     def is_colliding(self, player):
         result = False
