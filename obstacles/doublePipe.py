@@ -1,10 +1,7 @@
 import pygame
-from color import *
 from platform import Platform
 from random import randint
-
 from obstacles.obstacle import Obstacle
-
 
 class DoublePipe(Obstacle):
     def __init__(self, x, y, width, height, vel_x, gap, color):

@@ -1,5 +1,4 @@
 import pygame
-from color import *
 
 class Obstacle:
     def __init__(self, x, y, width, height, vel_x, color):
@@ -29,6 +28,9 @@ class Obstacle:
 
     def update(self):
         self._x -= self.vel_x
+
+    def draw(self, surface):
+        pygame.draw.rect(surface, self._color, [self._x, self._y, self._width, self._height])
 
     def is_colliding(self, player):
         result = False
