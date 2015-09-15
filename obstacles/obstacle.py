@@ -9,17 +9,28 @@ class Obstacle:
         self._height = height
         self._vel_x = vel_x
 
-    def get_x(self):
+    @property
+    def x(self):
         return self._x
 
-    def get_y(self):
+    @property
+    def y(self):
         return self._y
 
-    def get_width(self):
+    @property
+    def width(self):
         return self._width
 
-    def get_height(self):
+    @property
+    def height(self):
         return self._height
 
     def update(self):
         self._x -= self._vel_x
+
+    def is_colliding(self, player):
+        result = False
+        if player.x + player.width >= self.x and player.x <= (self.x + self.width)\
+                and player.y + player.height >= self.y and player.y <= self.y + self.height:
+            result = True
+        return result

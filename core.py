@@ -3,7 +3,9 @@ from pygame.locals import *
 from color import BLACK, WHITE
 from helicopter import Helicopter
 from message import Logger
+from obstacles.platform import Platform
 from obstacles.pipe import Pipe
+from obstacles.doublePipe import DoublePipe
 from random import randint
 
 class Game:
@@ -24,12 +26,15 @@ class Game:
             # Check if colliding with obstacle
             if obstacle.is_colliding(self.__heli):
                 self.game_over()
-            if obstacle.get_x() + obstacle.get_width() <= 0:
+            if obstacle.x + obstacle.width <= 0:
                 self.__obstacle_list.remove(obstacle)
 
         # Check for hitting ceiling/floor after checking objects
         if self.__heli.is_out_of_bounds():
             self.game_over()
+
+        # Decide whether to generate a new obstacle
+        self.generate_obstacle()
 
     def draw(self):
         self.__heli.draw(self.__surface)
@@ -58,12 +63,28 @@ class Game:
         self.__heli.reset()
         self.__obstacle_list = []
 
+    def generate_obstacle(self):
+        diff_mod = {'EASY': 3, 'NORMAL': 2}
+        types = {0: Platform, 1: Pipe, 2: DoublePipe}
+
+        create_obstacle = len(self.__obstacle_list) is 0
+        if not create_obstacle:
+            last_obstacle = self.__obstacle_list[-1]
+            if last_obstacle.x + last_obstacle.width <= self.__screen_width - 300:
+                create_obstacle = randint(0, 1) is 1
+        if create_obstacle:
+            obs_type = types[randint(0, 2)]
+            if obs_type is Platform:
+                half_height = self.__screen_height / 2
+                obstacle = obs_type(self.__screen_width, randint(half_height - 250, half_height + 250), randint(25, self.__screen_width), 25, 3)
+            else:
+                obstacle = obs_type(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.height * diff_mod['EASY'])
+            self.__obstacle_list.append(obstacle)
+
     def run(self):
         pygame.init()
-        diff_mod = {'EASY': 3, 'NORMAL': 2}
         self.__logger = Logger(self.__display, self.__surface)
-        obstacle = Pipe(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.get_height() * diff_mod['EASY'])
-        self.__obstacle_list.append(obstacle)
+        self.generate_obstacle()
         while True:
             self.__surface.fill(BLACK)
             self.update()

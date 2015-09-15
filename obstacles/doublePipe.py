@@ -1,25 +1,30 @@
 import pygame
 from color import *
 from platform import Platform
+from random import randint
 
 from obstacles.obstacle import Obstacle
 
 
-class Pipe(Obstacle):
+class DoublePipe(Obstacle):
     def __init__(self, x, y, width, height, vel_x, gap):
         Obstacle.__init__(self, x, y, width, height, vel_x)
+        mid_height = randint(0, 150)
 
         # Make sure the gap can always be seen
         screen_height = pygame.display.Info().current_h
-        if (height + gap) > screen_height:
-            height = screen_height - gap
+        if (height + (gap * 2) + mid_height) > screen_height:
+            height = screen_height - (gap * 2) - mid_height
         top = Platform(x, y, width, height, vel_x)
 
-        # Make sure the bottom half of the pipe always takes up the rest of the height of the screen
-        bottom_y = y + gap + height
+        mid_y = y + gap + height
+        mid = Platform(x, mid_y, width, mid_height, vel_x)
+
+        # Make sure the bottom of the pipe always takes up the rest of the height of the screen
+        bottom_y = mid_y + gap + mid_height
         bottom_height = screen_height - bottom_y
         bottom = Platform(x, bottom_y, width, bottom_height, vel_x)
-        self.__pipes = [top, bottom]
+        self.__pipes = [top, mid, bottom]
 
     @property
     def x(self):
