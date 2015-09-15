@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from color import BLACK, WHITE
 from helicopter import Helicopter
-from message import Logger
+from logger import Logger
 from obstacles.platform import Platform
 from obstacles.pipe import Pipe
 from obstacles.doublePipe import DoublePipe
