@@ -93,6 +93,6 @@ class Game:
             self.draw()
             self.replay_or_quit()
             self.__display.update()
-            self.__clock.tick(60)
+            self.__clock.tick(75)
 
 Game().run()

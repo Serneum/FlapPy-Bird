@@ -4,7 +4,7 @@ from pygame.locals import K_SPACE, K_UP
 class Helicopter:
     def __init__(self, image):
         self.__image = pygame.image.load("resources/" + image)
-        self.__speed = 5
+        self.__speed = 7
 
         self.__x = 100
         # Start in the center of the y axis
