@@ -76,9 +76,11 @@ class Game:
             obs_type = types[randint(0, 2)]
             if obs_type is Platform:
                 platform_height = 50
-                obstacle = obs_type(self.__screen_width, (self.__screen_height - platform_height) / 2, randint(150, self.__screen_width), platform_height, 3)
+                obstacle = obs_type(self.__screen_width, (self.__screen_height - platform_height) / 2,
+                                    randint(150, self.__screen_width / 2), platform_height, 3)
             else:
-                obstacle = obs_type(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3, self.__heli.height * diff_mod['EASY'])
+                obstacle = obs_type(self.__screen_width, 0, 75, randint(0, self.__screen_height), 3,
+                                    self.__heli.height * diff_mod['EASY'])
             self.__obstacle_list.append(obstacle)
 
     def run(self):
