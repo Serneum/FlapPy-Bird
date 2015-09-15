@@ -7,7 +7,7 @@ class Obstacle:
         self._y = y
         self._width = width
         self._height = height
-        self._vel_x = vel_x
+        self.vel_x = vel_x
         self.passed_player = False
 
     @property
@@ -27,7 +27,7 @@ class Obstacle:
         return self._height
 
     def update(self):
-        self._x -= self._vel_x
+        self._x -= self.vel_x
 
     def is_colliding(self, player):
         result = False
