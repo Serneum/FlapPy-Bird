@@ -1,9 +1,6 @@
 import pygame
-from color import *
 from platform import Platform
-
 from obstacles.obstacle import Obstacle
-
 
 class Pipe(Obstacle):
     def __init__(self, x, y, width, height, vel_x, gap, color):
