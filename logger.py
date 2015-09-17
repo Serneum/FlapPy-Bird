@@ -14,8 +14,9 @@ class Logger:
         screen_width = screen_info.current_w
         screen_height = screen_info.current_h
 
-        title_text_surf, title_text_rect = self.__make_text_objects(text, self.__large_text)
-        continue_text_surf, continue_text_rect = self.__make_text_objects("Press any key to continue...", self.__small_text)
+        title_text_surf, title_text_rect = self.__make_text_objects(text, self.__large_text, SUNSET)
+        continue_text_surf, continue_text_rect = self.__make_text_objects("Press any key to continue...",
+                                                                          self.__small_text, SUNSET)
 
         title_text_rect.center = screen_width / 2, screen_height / 2
         continue_text_rect.center = screen_width / 2, ((screen_height / 2) + 100)
@@ -26,10 +27,9 @@ class Logger:
         time.sleep(wait)
 
     def score(self, score):
-        font = pygame.font.Font("freesansbold.ttf", 20)
-        text = font.render("Score: " + str(score), True, WHITE)
-        self.__surface.blit(text, [0, 0])
+        text_surf, text_rect = self.__make_text_objects("Score: " + str(score), self.__small_text, WHITE)
+        self.__surface.blit(text_surf, text_rect)
 
-    def __make_text_objects(self, text, font):
-        text_surface = font.render(text, True, SUNSET)
+    def __make_text_objects(self, text, font, color):
+        text_surface = font.render(text, True, color)
         return text_surface, text_surface.get_rect()
