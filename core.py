@@ -122,7 +122,6 @@ class Game:
 
     # Run the game
     def run(self):
-        pygame.init()
         self.__logger = Logger(self.__display, self.__surface)
         self.generate_obstacle()
         while True:
@@ -133,4 +132,5 @@ class Game:
             self.__display.update()
             self.__clock.tick(75)
 
+pygame.init()
 Game().run()
