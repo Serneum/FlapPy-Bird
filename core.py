@@ -116,7 +116,7 @@ class Game:
             settings = (5, 3.0)
         elif 8 <= self.score < 14:
             settings = (6, 2.9)
-        else:
+        elif self.score >= 14:
             settings = (7, 2.8)
         return settings
 
